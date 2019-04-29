@@ -22,9 +22,6 @@ func validateAnnotations(value interface{}, key string) (ws []string, es []error
 			}
 		}
 
-		if isInternalKey(k) {
-			es = append(es, fmt.Errorf("%s: %q is internal Kubernetes annotation", key, k))
-		}
 	}
 	return
 }
