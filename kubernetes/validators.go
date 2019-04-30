@@ -22,9 +22,6 @@ func validateAnnotations(value interface{}, key string) (ws []string, es []error
 			}
 		}
 
-		if isInternalKey(k) {
-			es = append(es, fmt.Errorf("%s: %q is internal Kubernetes annotation", key, k))
-		}
 	}
 	return
 }
@@ -248,4 +245,30 @@ func validateAttributeValueIsIn(validValues []string) schema.SchemaValidateFunc 
 		return
 
 	}
+}
+
+func validateTypeStringNullableIntOrPercent(v interface{}, key string) (ws []string, es []error) {
+	value, ok := v.(string)
+	if !ok {
+		es = append(es, fmt.Errorf("expected type of %s to be string", key))
+		return
+	}
+
+	if value == "" {
+		return
+	}
+
+	if strings.HasSuffix(value, "%") {
+		percent, err := strconv.ParseInt(strings.TrimSuffix(value, "%"), 10, 64)
+		if err != nil {
+			es = append(es, fmt.Errorf("%s: cannot parse '%s' as percent: %s", key, value, err))
+		}
+		if percent < 0 || percent >= 100 {
+			es = append(es, fmt.Errorf("%s: '%s' is not between 0%% and 100%%", key, value))
+		}
+	} else if _, err := strconv.ParseInt(value, 10, 64); err != nil {
+		es = append(es, fmt.Errorf("%s: cannot parse '%s' as int or percent: %s", key, value, err))
+	}
+
+	return
 }

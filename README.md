@@ -1,3 +1,27 @@
+#### NOTE: This is forked from - https://github.com/terraform-providers/terraform-provider-kubernetes
+
+## Sailthru branch
+We have created a Sailthru branch that has these few PRs that we need, but are sitting waiting to get merged in to the original upstream repo.
+
+
+
+These are they:
+
+[x] Merge Pod Disruption Budgets PR - https://github.com/terraform-providers/terraform-provider-kubernetes/pull/338
+
+[x] Merge Jobs & Cron-jobs PR - https://github.com/terraform-providers/terraform-provider-kubernetes/pull/411
+
+[x] Merge Pod Affinity PR - https://github.com/terraform-providers/terraform-provider-kubernetes/pull/328
+
+[x] A fix for the `internal annotations error` that is in this branch: `internal-annotations-fix`
+
+
+
+These have only been merged into the `sailthru` branch. This is so we can keep master branch clean and close to the upstream repo for future syncing.
+
+
+
+
 # Terraform Provider
 
 - Website: https://www.terraform.io
